@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public float speed;
     public float jumpForce;
-    private bool isGrounded = true;
+    public bool isGrounded = true;
     private bool isDead;
     private Rigidbody2D Mario;
     private CapsuleCollider2D MarioCollider;
@@ -147,11 +147,6 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
 
-        if (collision.collider.tag == "Wall")
-        {
-            isGrounded = false;
-        }
-
         if (isGrounded == true && !isDead)
         {
             if (Input.GetKey(KeyCode.UpArrow))
@@ -233,6 +228,12 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    void OnCollisonExit2D(Collider2D collision)
+    {
+        isGrounded = false;
+    }
+
     private void LateUpdate()
     {
         if (Mario.position.y < -20 && livesCount < 1)

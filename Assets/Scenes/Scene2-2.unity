@@ -3400,7 +3400,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 4}
+  m_Size: {x: 0.95, y: 4}
   m_EdgeRadius: 0
 --- !u!61 &311693263
 BoxCollider2D:
@@ -6879,7 +6879,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 6.47023, y: -1.03}
+  m_Offset: {x: 6.5, y: -1.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6890,7 +6890,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.79808617, y: 0.089487076}
+  m_Size: {x: 0.67, y: 0.089487076}
   m_EdgeRadius: 0
 --- !u!61 &1177626222
 BoxCollider2D:
@@ -6916,7 +6916,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8368602, y: 0.089487076}
+  m_Size: {x: 0.67, y: 0.089487076}
   m_EdgeRadius: 0
 --- !u!61 &1177626223
 BoxCollider2D:
@@ -7971,6 +7971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpForce: 4.2
+  isGrounded: 1
   livesText: {fileID: 0}
   coinText: {fileID: 0}
   winText: {fileID: 0}

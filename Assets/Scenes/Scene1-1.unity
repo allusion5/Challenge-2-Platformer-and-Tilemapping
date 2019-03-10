@@ -1038,6 +1038,33 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: -9, y: -1, z: 0}
+    second:
+      m_TileIndex: 11
+      m_TileSpriteIndex: 9
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
+  - first: {x: -8, y: -1, z: 0}
+    second:
+      m_TileIndex: 11
+      m_TileSpriteIndex: 9
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
+  - first: {x: -7, y: -1, z: 0}
+    second:
+      m_TileIndex: 11
+      m_TileSpriteIndex: 9
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   - first: {x: -8, y: 2, z: 0}
     second:
       m_TileIndex: 19
@@ -1260,8 +1287,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 3
+    m_Data: {fileID: 11400000, guid: 28d508fdb47192c448c1af6a53556c6e, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 42cf6abf399a5084395912d5ca566ecd, type: 2}
   - m_RefCount: 4
@@ -1307,8 +1334,8 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 3
+    m_Data: {fileID: 21300052, guid: 7565f047e50d991469827d0f4d3342bc, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300500, guid: 7565f047e50d991469827d0f4d3342bc, type: 3}
   - m_RefCount: 1
@@ -1340,7 +1367,7 @@ Tilemap:
   - m_RefCount: 3
     m_Data: {fileID: 21301012, guid: 7565f047e50d991469827d0f4d3342bc, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 47
+  - m_RefCount: 50
     m_Data:
       e00: 1
       e01: 0
@@ -1359,7 +1386,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 47
+  - m_RefCount: 50
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1450,7 +1477,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: cfa61b5dd9e1fd7469e739578880ad4c, type: 3}
     volume: 100
     pitch: 1
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: stageClear
     clip: {fileID: 8300000, guid: 7aeb6b387f8ad3f45b64fa377eacc272, type: 3}
@@ -1492,6 +1519,7 @@ GameObject:
   - component: {fileID: 1013721811}
   - component: {fileID: 1013721812}
   - component: {fileID: 1013721813}
+  - component: {fileID: 1013721814}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -2274,6 +2302,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.95, y: 0.1}
   m_EdgeRadius: 0
+--- !u!61 &1013721814
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013721805}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -7.47, y: -0.1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3, y: 0.2}
+  m_EdgeRadius: 0
 --- !u!1 &1019597236
 GameObject:
   m_ObjectHideFlags: 0
@@ -2587,6 +2641,7 @@ GameObject:
   - component: {fileID: 1342829147}
   - component: {fileID: 1342829146}
   - component: {fileID: 1342829152}
+  - component: {fileID: 1342829153}
   m_Layer: 0
   m_Name: Bounds
   m_TagString: Wall
@@ -2763,6 +2818,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 2.03, y: 1.83}
+  m_EdgeRadius: 0
+--- !u!61 &1342829153
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342829145}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -7.51, y: -0.55}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3, y: 0.74}
   m_EdgeRadius: 0
 --- !u!1 &1349138662
 GameObject:
@@ -7155,6 +7236,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpForce: 4.8
+  isGrounded: 1
   livesText: {fileID: 1763211373}
   coinText: {fileID: 306638298}
   winText: {fileID: 1349138664}

@@ -8,6 +8,7 @@ TagManager:
   - Coin
   - Enemy
   - Wall
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -50,6 +51,9 @@ TagManager:
     locked: 0
   - name: Decorative
     uniqueID: 2581686213
+    locked: 0
+  - name: Powerups
+    uniqueID: 2030031753
     locked: 0
   - name: Surfaces
     uniqueID: 1426718989

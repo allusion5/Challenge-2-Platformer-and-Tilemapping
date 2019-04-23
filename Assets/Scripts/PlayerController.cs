@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     Animator anim;
-    SpriteRenderer facing;
+    SpriteRenderer marioSprite;
 
     public float speed;
     public float jumpForce;
-    public bool isGrounded = true;
+    public float invincibilityFlashSpeed;
+    private bool isGrounded = true;
     private bool isDead;
+    private bool isSuper = false;
     private Rigidbody2D Mario;
     private CapsuleCollider2D MarioCollider;
     private AudioManager audioManager;
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public Text livesText;
     public Text coinText;
     public Text winText;
+    public Text timerText;
     public GameObject UI;
     private int livesCount;
     private int coinCount;
@@ -41,14 +44,11 @@ public class PlayerController : MonoBehaviour
     {
 
         FindObjectOfType<AudioManager>().Play("background1.1");
+
         Mario = GetComponent<Rigidbody2D>();
-
         MarioCollider = GetComponent<CapsuleCollider2D>();
-
         anim = GetComponent<Animator>();
-
-        facing = GetComponent<SpriteRenderer>();
-
+        marioSprite = GetComponent<SpriteRenderer>();
         audioManager = GetComponent<AudioManager>();
 
         DontDestroyOnLoad(gameObject);
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
         if (Input.GetKey("escape"))
         {
             Application.Quit();
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
             {
                 MarioCollider.isTrigger = false;
                 Mario.AddForce(Vector2.zero);
-                facing.flipX = false;
+                marioSprite.flipX = false;
                 Mario.MovePosition(new Vector2 (-10.85f, -2.495f));
 
                 if (coinCount < 4)
@@ -122,11 +122,11 @@ public class PlayerController : MonoBehaviour
         {
             if (Mario.velocity.x > 0)
             {
-                facing.flipX = false;
+                marioSprite.flipX = false;
             }
             if (Mario.velocity.x < 0)
             {
-                facing.flipX = true;
+                marioSprite.flipX = true;
             }
         }
 
@@ -151,7 +151,14 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                FindObjectOfType<AudioManager>().Play("marioJump");
+                if (isSuper)
+                {
+                    FindObjectOfType<AudioManager>().Play("superJump");
+                }
+                else
+                {
+                    FindObjectOfType<AudioManager>().Play("marioJump");
+                }
                 Mario.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 isGrounded = false;
             }
@@ -160,28 +167,67 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Pickup") && !isDead)
+        {
+            FindObjectOfType<AudioManager>().Play("powerupCollect");
+            collision.gameObject.SetActive(false);
+            anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("SuperMario");
+            MarioCollider.size = new Vector2(1, 2);
+            isSuper = true;
+        }
+
+        if (collision.gameObject.CompareTag("Wall") && Mario.velocity.y == 0 && !isGrounded)
+        {
+            FindObjectOfType<AudioManager>().Play("bump");
+        }
+
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            isDead = true;
-            livesCount--;
-            SetLivesCount();
-
-            if (coinCount < 4)
+            if (isSuper)
             {
-                FindObjectOfType<AudioManager>().Pause("background1.1");
+                anim.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Mario");
+                FindObjectOfType<AudioManager>().Play("powerDown");
+                StartCoroutine(InvincibilityFrames(invincibilityFlashSpeed));
+            
+
+                IEnumerator InvincibilityFrames(float x)
+                {
+                    Physics2D.IgnoreLayerCollision(2, 8, true);
+                    for (int i=0; i <10; i++)
+                    {
+                        marioSprite.enabled = false;
+                        yield return new WaitForSecondsRealtime(x);
+                        marioSprite.enabled = true;
+                        yield return new WaitForSecondsRealtime(x);
+                    }
+                    Physics2D.IgnoreLayerCollision(2, 8, false);
+                }
+                MarioCollider.size = new Vector2(0.8125f, 1);
+                isSuper = false;
             }
             else
             {
-                FindObjectOfType<AudioManager>().Pause("background1.2");
-            }
-            if (isDead)
-            {
-                FindObjectOfType<AudioManager>().Play("marioDeath");
-                Mario.velocity = Vector2.zero;
-                anim.SetInteger("State", 3);
-                MarioCollider.isTrigger = true;
-                Mario.velocity = new Vector2(0, 6);
-                collision.gameObject.SetActive(false);
+                isDead = true;
+                livesCount--;
+                SetLivesCount();
+
+                if (coinCount < 4)
+                {
+                    FindObjectOfType<AudioManager>().Pause("background1.1");
+                }
+                else
+                {
+                    FindObjectOfType<AudioManager>().Pause("background1.2");
+                }
+                if (isDead)
+                {
+                    FindObjectOfType<AudioManager>().Play("marioDeath");
+                    Mario.velocity = Vector2.zero;
+                    anim.SetInteger("State", 3);
+                    MarioCollider.isTrigger = true;
+                    Mario.velocity = new Vector2(0, 6);
+                    collision.gameObject.SetActive(false);
+                }
             }
         }
     }
@@ -206,7 +252,7 @@ public class PlayerController : MonoBehaviour
                     yield return new WaitForSecondsRealtime(5.5f);
                     Mario.velocity = Vector2.zero;
                     isGrounded = false;
-                    facing.flipX = false;
+                    marioSprite.flipX = false;
                     anim.SetInteger("State", 2);
                     Mario.transform.position = (new Vector2(-10.85f, 10));
                     livesCount = 3;
@@ -231,7 +277,10 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisonExit2D(Collider2D collision)
     {
-        isGrounded = false;
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            isGrounded = false;
+        }
     }
 
     private void LateUpdate()
